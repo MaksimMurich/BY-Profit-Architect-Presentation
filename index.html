@@ -8,589 +8,701 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      /* Neutrals — the whole page lives here */
-      --bg:         #f5f6f8;
-      --white:      #ffffff;
-      --border:     #e3e7ee;
-      --border-lt:  #edf0f5;
-
-      /* Text */
-      --text:       #1c2b3a;
-      --text-mid:   #3c4f62;
-      --muted:      #7a8fa3;
-
-      /* Brand blue — muted, desaturated */
-      --blue:       #2f6096;
-      --blue-soft:  #4a7db5;
-      --blue-bg:    #eef4fb;
-      --blue-bdr:   #c8ddf0;
-
-      /* Brand yellow — used as a tiny accent only */
-      --amber:      #b8870a;
-      --amber-bg:   #fdf6e3;
-      --amber-bdr:  #e8d084;
-
-      /* Hero */
-      --hero-bg:    #1a2d42;
-      --hero-text:  #ccd8e5;
-      --hero-muted: #6a8aaa;
-      --hero-bdr:   #253d56;
+      --navy:     #1a2f5e;
+      --navy-dk:  #111f42;
+      --navy-lt:  #243570;
+      --gold:     #f5b731;
+      --gold-dk:  #d99e1a;
+      --white:    #ffffff;
+      --off:      #f4f6fb;
+      --text:     #1c2640;
+      --muted:    #6b7a9a;
+      --border:   #e2e8f4;
     }
 
     html { scroll-behavior: smooth; }
 
-    /* Thin brand stripe — subtle, not screaming */
-    body::before {
-      content: '';
-      position: fixed; top: 0; left: 0; right: 0; z-index: 300;
-      height: 2px;
-      background: linear-gradient(90deg, var(--blue) 50%, var(--amber) 50%);
-      opacity: .7;
-    }
-
     body {
-      background: var(--bg);
-      color: var(--text);
       font-family: -apple-system, 'Segoe UI', system-ui, sans-serif;
       font-size: 16px;
       line-height: 1.7;
+      color: var(--text);
+      background: var(--white);
       -webkit-font-smoothing: antialiased;
     }
 
-    /* ── NAV ─────────────────────────────────────────────── */
+    /* ── NAV ──────────────────────────────────────────────── */
     nav {
-      position: fixed; top: 2px; left: 0; right: 0; z-index: 200;
-      height: 58px;
+      position: fixed; top: 0; left: 0; right: 0; z-index: 500;
+      height: 64px;
       display: flex; align-items: center; justify-content: space-between;
-      padding: 0 52px;
-      background: rgba(255,255,255,.97);
-      backdrop-filter: blur(8px);
-      border-bottom: 1px solid var(--border);
+      padding: 0 60px;
+      background: rgba(17,31,66,.96);
+      backdrop-filter: blur(10px);
     }
     .logo {
-      font-size: .95rem; font-weight: 800; letter-spacing: .02em;
-      color: var(--blue);
+      font-size: 1rem; font-weight: 800; letter-spacing: .03em;
+      color: var(--white);
     }
-    .logo span { color: var(--text-mid); font-weight: 600; }
+    .logo em { font-style: normal; color: var(--gold); }
     .nav-links a {
-      color: var(--muted); text-decoration: none; font-size: .85rem;
-      margin-left: 28px; transition: color .15s;
+      color: rgba(255,255,255,.6); text-decoration: none;
+      font-size: .84rem; margin-left: 28px;
+      transition: color .15s;
     }
-    .nav-links a:hover { color: var(--text); }
-
-    /* ── SHARED ──────────────────────────────────────────── */
-    .wrap { max-width: 1040px; margin: 0 auto; padding: 0 52px; }
-
-    .label {
-      display: inline-block;
-      font-size: .68rem; font-weight: 700; letter-spacing: .12em;
-      text-transform: uppercase;
-      color: var(--blue-soft);
-      margin-bottom: 18px;
+    .nav-links a:hover { color: var(--white); }
+    .nav-cta {
+      margin-left: 28px !important;
+      background: var(--gold); color: var(--navy-dk) !important;
+      font-weight: 700; padding: 8px 18px; border-radius: 5px;
     }
-
-    h2 {
-      font-size: clamp(1.6rem, 2.8vw, 2.2rem);
-      font-weight: 700; line-height: 1.25;
-      letter-spacing: -.02em;
-      color: var(--text);
-    }
-
-    .lead {
-      font-size: 1rem; color: var(--muted);
-      max-width: 540px; margin-top: 12px; line-height: 1.8;
-    }
-
-    /* Buttons */
-    .btn {
-      display: inline-block; padding: 11px 26px; border-radius: 6px;
-      font-weight: 600; font-size: .88rem; cursor: pointer;
-      text-decoration: none; transition: all .15s; white-space: nowrap;
-    }
-    .btn-primary {
-      background: var(--blue);
-      color: #fff;
-    }
-    .btn-primary:hover { background: #265280; box-shadow: 0 3px 12px rgba(47,96,150,.25); }
-
-    .btn-amber {
-      background: var(--amber);
-      color: #fff;
-    }
-    .btn-amber:hover { background: #9e730a; box-shadow: 0 3px 12px rgba(184,135,10,.25); }
-
-    .btn-outline {
-      border: 1.5px solid var(--hero-bdr);
-      color: var(--hero-text);
-      background: transparent;
-    }
-    .btn-outline:hover { border-color: var(--hero-text); }
+    .nav-cta:hover { background: #e8aa20; }
 
     /* ── HERO ─────────────────────────────────────────────── */
-    #hero-wrap {
-      background: var(--hero-bg);
-      padding-top: 60px;
-    }
     #hero {
-      max-width: 1040px; margin: 0 auto;
-      padding: 88px 52px 80px;
+      background: linear-gradient(135deg, var(--navy-dk) 0%, var(--navy-lt) 100%);
+      padding: 160px 60px 100px;
+      position: relative; overflow: hidden;
     }
-
+    .hero-inner {
+      max-width: 1060px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 60px; align-items: center;
+    }
     .hero-eyebrow {
-      font-size: .7rem; font-weight: 600; letter-spacing: .14em;
-      text-transform: uppercase; color: var(--hero-muted);
-      margin-bottom: 24px;
+      display: flex; align-items: center; gap: 10px;
+      font-size: .72rem; font-weight: 700; letter-spacing: .14em;
+      text-transform: uppercase; color: var(--gold);
+      margin-bottom: 22px;
     }
-
+    .hero-eyebrow::before {
+      content: ''; display: block; width: 24px; height: 2px;
+      background: var(--gold); flex-shrink: 0;
+    }
     h1 {
-      font-size: clamp(2.1rem, 4vw, 3.4rem);
-      font-weight: 700; line-height: 1.15;
-      letter-spacing: -.025em;
-      color: #e8f0f8;
-      max-width: 680px;
+      font-size: clamp(2rem, 3.8vw, 3.2rem);
+      font-weight: 800; line-height: 1.12;
+      letter-spacing: -.025em; color: var(--white);
+      margin-bottom: 20px;
     }
-    h1 em {
-      font-style: normal;
-      color: #f0c040;  /* warm amber-gold, not screaming yellow */
-    }
-
+    h1 em { font-style: normal; color: var(--gold); }
     .hero-sub {
-      margin-top: 20px;
-      font-size: 1rem; color: var(--hero-muted);
-      max-width: 500px; line-height: 1.8;
+      font-size: .97rem; color: rgba(255,255,255,.55);
+      max-width: 440px; line-height: 1.8; margin-bottom: 36px;
+    }
+    .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn {
+      display: inline-block; padding: 13px 28px; border-radius: 6px;
+      font-weight: 700; font-size: .88rem;
+      text-decoration: none; cursor: pointer; transition: all .15s;
+    }
+    .btn-gold {
+      background: var(--gold); color: var(--navy-dk);
+    }
+    .btn-gold:hover { background: #e8aa20; box-shadow: 0 4px 18px rgba(245,183,49,.4); transform: translateY(-1px); }
+    .btn-border {
+      border: 1.5px solid rgba(255,255,255,.3);
+      color: rgba(255,255,255,.85); background: transparent;
+    }
+    .btn-border:hover { border-color: rgba(255,255,255,.7); }
+
+    /* Hero visual — abstract dashboard card */
+    .hero-visual {
+      display: flex; justify-content: center; align-items: center;
+    }
+    .dash-card {
+      background: rgba(255,255,255,.07);
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 16px;
+      padding: 28px;
+      width: 100%; max-width: 360px;
+      backdrop-filter: blur(6px);
+    }
+    .dash-card-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 22px;
+    }
+    .dash-title { font-size: .8rem; font-weight: 700; color: rgba(255,255,255,.6); text-transform: uppercase; letter-spacing: .06em; }
+    .dash-badge {
+      background: rgba(245,183,49,.15); border: 1px solid rgba(245,183,49,.3);
+      color: var(--gold); font-size: .7rem; font-weight: 700;
+      padding: 3px 10px; border-radius: 20px;
+    }
+    .dash-metric {
+      margin-bottom: 18px;
+    }
+    .dash-metric-val { font-size: 2rem; font-weight: 800; color: var(--white); line-height: 1; }
+    .dash-metric-val span { color: var(--gold); }
+    .dash-metric-lbl { font-size: .76rem; color: rgba(255,255,255,.4); margin-top: 3px; }
+    .dash-bar-wrap { margin-bottom: 16px; }
+    .dash-bar-label { display: flex; justify-content: space-between; font-size: .72rem; color: rgba(255,255,255,.45); margin-bottom: 5px; }
+    .dash-bar { height: 6px; background: rgba(255,255,255,.08); border-radius: 3px; overflow: hidden; }
+    .dash-bar-fill { height: 100%; border-radius: 3px; }
+    .bar-gold { background: var(--gold); }
+    .bar-blue { background: #4a90d9; }
+    .bar-teal { background: #2ec4b6; }
+    .dash-row {
+      display: flex; gap: 10px; margin-top: 16px;
+    }
+    .dash-mini {
+      flex: 1; background: rgba(255,255,255,.06); border-radius: 8px; padding: 12px;
+      text-align: center;
+    }
+    .dash-mini-val { font-size: 1.1rem; font-weight: 800; color: var(--white); }
+    .dash-mini-lbl { font-size: .65rem; color: rgba(255,255,255,.35); margin-top: 2px; }
+
+    /* Hero wave bottom */
+    .hero-wave {
+      position: absolute; bottom: -1px; left: 0; right: 0;
+      line-height: 0;
+    }
+    .hero-wave svg { display: block; width: 100%; }
+
+    /* ── SECTION SHARED ───────────────────────────────────── */
+    .section { padding: 96px 60px; }
+    .wrap { max-width: 1060px; margin: 0 auto; }
+
+    .eyebrow {
+      display: flex; align-items: center; gap: 10px;
+      font-size: .7rem; font-weight: 700; letter-spacing: .14em;
+      text-transform: uppercase; color: var(--navy);
+      margin-bottom: 16px;
+    }
+    .eyebrow::before {
+      content: ''; display: block; width: 20px; height: 2px;
+      background: var(--gold); flex-shrink: 0;
+    }
+    h2 {
+      font-size: clamp(1.65rem, 2.8vw, 2.3rem);
+      font-weight: 800; line-height: 1.2;
+      letter-spacing: -.02em; color: var(--text);
+      margin-bottom: 14px;
+    }
+    .lead {
+      font-size: .97rem; color: var(--muted);
+      max-width: 520px; line-height: 1.8;
     }
 
-    .hero-actions {
-      margin-top: 36px;
-      display: flex; gap: 10px; flex-wrap: wrap; align-items: center;
-    }
-
-    .hero-stats {
-      display: flex; gap: 48px; flex-wrap: wrap;
-      margin-top: 56px; padding-top: 36px;
-      border-top: 1px solid var(--hero-bdr);
-    }
-    .stat-val {
-      font-size: 1.9rem; font-weight: 700;
-      color: #e8f0f8; line-height: 1;
-    }
-    .stat-val span { color: #f0c040; }
-    .stat-lbl { font-size: .78rem; color: var(--hero-muted); margin-top: 5px; }
-
-    /* ── PROBLEM ─────────────────────────────────────────── */
-    .section { padding: 88px 0; }
-
-    .grid-3 {
+    /* ── PROBLEM — icon cards ─────────────────────────────── */
+    #problem { background: var(--off); }
+    .pain-grid {
       display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
-      gap: 14px; margin-top: 44px;
+      gap: 18px; margin-top: 48px;
     }
-    .card {
+    .pain-card {
       background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 26px 24px 22px;
-      transition: border-color .2s, box-shadow .2s;
+      border-radius: 12px;
+      padding: 30px 26px;
+      box-shadow: 0 2px 12px rgba(26,47,94,.06);
+      transition: box-shadow .2s, transform .2s;
     }
-    .card:hover {
-      border-color: var(--blue-bdr);
-      box-shadow: 0 2px 16px rgba(47,96,150,.07);
+    .pain-card:hover {
+      box-shadow: 0 8px 28px rgba(26,47,94,.12);
+      transform: translateY(-3px);
     }
-    .card-icon { font-size: 1.4rem; margin-bottom: 12px; line-height: 1; opacity: .85; }
-    .card h3 { font-size: .93rem; font-weight: 700; margin-bottom: 7px; color: var(--text); }
-    .card p  { font-size: .84rem; color: var(--muted); line-height: 1.65; }
+    .pain-icon-wrap {
+      width: 48px; height: 48px; border-radius: 12px;
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-lt) 100%);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem; margin-bottom: 18px;
+    }
+    .pain-card h3 { font-size: .93rem; font-weight: 700; margin-bottom: 8px; color: var(--text); }
+    .pain-card p  { font-size: .84rem; color: var(--muted); line-height: 1.65; }
 
-    /* ── PROCESS ─────────────────────────────────────────── */
-    #process-wrap {
-      background: var(--white);
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
+    /* ── PROCESS — horizontal steps ──────────────────────── */
+    #process { background: var(--white); }
+    .steps-row {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 0; margin-top: 56px; position: relative;
     }
-
-    .steps {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      margin-top: 48px;
-      border: 1px solid var(--border); border-radius: 8px; overflow: hidden;
+    .steps-row::before {
+      content: '';
+      position: absolute; top: 36px; left: calc(16.66% + 16px); right: calc(16.66% + 16px);
+      height: 2px;
+      background: linear-gradient(90deg, var(--navy), var(--gold));
+      z-index: 0;
     }
     .step {
-      padding: 36px 30px;
-      border-right: 1px solid var(--border);
-      border-top: 2px solid var(--border);
+      text-align: center; padding: 0 24px;
+      position: relative; z-index: 1;
     }
-    .step:last-child { border-right: none; }
-    .step:nth-child(1) { border-top-color: var(--blue); }
-    .step:nth-child(2) { border-top-color: var(--border); }
-    .step:nth-child(3) { border-top-color: var(--amber); }
+    .step-dot {
+      width: 72px; height: 72px; border-radius: 50%;
+      margin: 0 auto 24px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem;
+      position: relative; z-index: 2;
+    }
+    .step:nth-child(1) .step-dot { background: var(--navy); box-shadow: 0 4px 20px rgba(26,47,94,.3); }
+    .step:nth-child(2) .step-dot { background: linear-gradient(135deg, var(--navy), var(--navy-lt)); box-shadow: 0 4px 20px rgba(26,47,94,.2); }
+    .step:nth-child(3) .step-dot { background: var(--gold); box-shadow: 0 4px 20px rgba(245,183,49,.4); }
+    .step-label {
+      font-size: .68rem; font-weight: 700; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 10px;
+    }
+    .step h3 { font-size: 1.05rem; font-weight: 800; margin-bottom: 10px; color: var(--text); }
+    .step > p { font-size: .84rem; color: var(--muted); line-height: 1.65; }
+    .step-list { list-style: none; margin-top: 14px; text-align: left; display: inline-block; }
+    .step-list li {
+      font-size: .82rem; color: var(--muted);
+      padding: 3px 0; display: flex; gap: 8px; align-items: baseline;
+    }
+    .step-list li::before { content: "→"; color: var(--navy); flex-shrink: 0; font-size: .75rem; }
 
-    .step-num {
-      font-size: .66rem; font-weight: 700; letter-spacing: .1em;
-      text-transform: uppercase; color: var(--muted); margin-bottom: 16px;
-    }
-    .step h3 { font-size: 1.05rem; font-weight: 700; color: var(--text); margin-bottom: 9px; }
-    .step > p { font-size: .85rem; color: var(--muted); line-height: 1.65; }
-    .step ul  { margin-top: 16px; list-style: none; padding: 0; }
-    .step ul li {
-      font-size: .83rem; color: var(--muted);
-      padding: 4px 0; display: flex; gap: 10px; align-items: baseline;
-    }
-    .step ul li::before { content: "–"; color: var(--blue-soft); flex-shrink: 0; }
-
-    /* ── VALUE ───────────────────────────────────────────── */
-    .grid-2-3 {
+    /* ── VALUE — 2-col split ──────────────────────────────── */
+    #value { background: var(--off); }
+    .value-grid {
       display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 14px; margin-top: 44px;
+      gap: 18px; margin-top: 48px;
+    }
+    .value-card {
+      background: var(--white);
+      border-radius: 12px; padding: 28px 26px;
+      box-shadow: 0 2px 12px rgba(26,47,94,.06);
+      transition: box-shadow .2s, transform .2s;
+      border-top: 3px solid transparent;
+    }
+    .value-card:nth-child(odd)  { border-top-color: var(--navy); }
+    .value-card:nth-child(even) { border-top-color: var(--gold); }
+    .value-card:hover {
+      box-shadow: 0 8px 28px rgba(26,47,94,.12);
+      transform: translateY(-3px);
     }
     .v-tag {
       display: inline-block;
-      font-size: .66rem; font-weight: 700; letter-spacing: .1em;
+      font-size: .67rem; font-weight: 700; letter-spacing: .1em;
       text-transform: uppercase;
-      color: var(--blue-soft);
-      background: var(--blue-bg);
-      border: 1px solid var(--blue-bdr);
-      border-radius: 3px;
-      padding: 3px 9px; margin-bottom: 12px;
+      color: var(--navy); background: rgba(26,47,94,.07);
+      border-radius: 4px; padding: 3px 9px; margin-bottom: 12px;
     }
+    .value-card h3 { font-size: .93rem; font-weight: 700; margin-bottom: 8px; color: var(--text); }
+    .value-card p  { font-size: .84rem; color: var(--muted); line-height: 1.65; }
 
-    /* ── WHY ─────────────────────────────────────────────── */
-    #why-wrap {
-      background: var(--white);
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-    }
-
-    .why-grid {
+    /* ── WHY — split layout ───────────────────────────────── */
+    #why { background: var(--white); }
+    .why-split {
       display: grid; grid-template-columns: 1fr 1fr;
-      gap: 60px; margin-top: 48px; align-items: start;
+      gap: 72px; margin-top: 56px; align-items: start;
     }
-    @media (max-width: 700px) { .why-grid { grid-template-columns: 1fr; gap: 36px; } }
-
+    @media (max-width: 720px) { .why-split { grid-template-columns: 1fr; gap: 40px; } }
     .why-list { list-style: none; }
     .why-list li {
-      display: flex; gap: 14px; align-items: flex-start;
-      padding: 16px 0; border-bottom: 1px solid var(--border-lt);
+      display: flex; gap: 16px; align-items: flex-start;
+      padding: 18px 0; border-bottom: 1px solid var(--border);
     }
     .why-list li:last-child { border-bottom: none; }
-    .why-check {
-      width: 22px; height: 22px; border-radius: 50%; flex-shrink: 0;
-      background: var(--blue-bg); border: 1px solid var(--blue-bdr);
+    .why-num {
+      width: 32px; height: 32px; border-radius: 8px; flex-shrink: 0;
+      background: linear-gradient(135deg, var(--navy), var(--navy-lt));
       display: flex; align-items: center; justify-content: center;
-      color: var(--blue); font-size: .72rem; font-weight: 800;
-      margin-top: 2px;
+      color: var(--white); font-size: .78rem; font-weight: 800;
     }
-    .why-list strong { display: block; font-size: .9rem; font-weight: 700; margin-bottom: 3px; color: var(--text); }
+    .why-list strong { display: block; font-size: .93rem; font-weight: 700; margin-bottom: 4px; color: var(--text); }
     .why-list span   { font-size: .83rem; color: var(--muted); line-height: 1.65; }
 
-    .quote-block {
-      background: var(--blue-bg);
-      border: 1px solid var(--blue-bdr);
-      border-left: 3px solid var(--blue);
-      border-radius: 8px; padding: 36px 32px;
+    .quote-wrap {
+      position: sticky; top: 100px;
     }
-    .quote-block blockquote {
-      font-size: .98rem; line-height: 1.8; color: var(--text-mid);
-      font-style: italic;
+    .quote-card {
+      background: linear-gradient(135deg, var(--navy-dk) 0%, var(--navy-lt) 100%);
+      border-radius: 16px; padding: 44px 40px;
+      position: relative; overflow: hidden;
     }
-    .quote-block .q-author {
-      margin-top: 18px; font-size: .8rem; color: var(--muted);
-      font-style: normal; font-weight: 600;
+    .quote-card::before {
+      content: '"';
+      position: absolute; top: -20px; left: 24px;
+      font-size: 10rem; font-weight: 900; line-height: 1;
+      color: rgba(245,183,49,.12);
     }
-
-    /* ── CTA ─────────────────────────────────────────────── */
-    #cta-wrap {
-      background: var(--bg);
+    .quote-card blockquote {
+      font-size: .98rem; line-height: 1.85;
+      color: rgba(255,255,255,.8); font-style: italic;
+      position: relative; z-index: 1;
     }
-    #cta {
-      padding: 88px 0 96px;
+    .quote-card .q-author {
+      margin-top: 24px; font-size: .82rem;
+      color: var(--gold); font-weight: 700; font-style: normal;
+      position: relative; z-index: 1;
+    }
+    .quote-stats {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 12px; margin-top: 20px;
+    }
+    .q-stat {
+      background: rgba(255,255,255,.07);
+      border-radius: 10px; padding: 16px;
       text-align: center;
     }
-    #cta h2 { max-width: 480px; margin: 14px auto 0; }
-    #cta .lead { margin: 12px auto 0; text-align: center; }
-    #cta .cta-actions {
-      margin-top: 36px;
-      display: flex; gap: 10px; flex-wrap: wrap;
-      align-items: center; justify-content: center;
+    .q-stat-val { font-size: 1.5rem; font-weight: 800; color: var(--gold); }
+    .q-stat-lbl { font-size: .72rem; color: rgba(255,255,255,.4); margin-top: 3px; }
+
+    /* ── CTA ──────────────────────────────────────────────── */
+    #cta {
+      background: linear-gradient(135deg, var(--navy-dk) 0%, var(--navy-lt) 100%);
+      position: relative; overflow: hidden;
     }
+    #cta::before {
+      content: '';
+      position: absolute; top: -80px; right: -80px;
+      width: 400px; height: 400px; border-radius: 50%;
+      background: rgba(245,183,49,.06);
+    }
+    #cta::after {
+      content: '';
+      position: absolute; bottom: -120px; left: -60px;
+      width: 300px; height: 300px; border-radius: 50%;
+      background: rgba(245,183,49,.04);
+    }
+    .cta-inner {
+      text-align: center; max-width: 580px; margin: 0 auto;
+      position: relative; z-index: 1;
+    }
+    .cta-inner .eyebrow { justify-content: center; color: var(--gold); }
+    .cta-inner .eyebrow::before { background: var(--gold); }
+    .cta-inner h2 { color: var(--white); }
+    .cta-inner .lead { color: rgba(255,255,255,.55); margin: 14px auto 0; text-align: center; }
+    .cta-btns {
+      margin-top: 36px;
+      display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;
+    }
+    .btn-navy {
+      background: rgba(255,255,255,.1);
+      border: 1.5px solid rgba(255,255,255,.25);
+      color: var(--white);
+    }
+    .btn-navy:hover { background: rgba(255,255,255,.18); }
     .phone-link {
-      display: inline-flex; align-items: center; gap: 7px;
-      background: var(--white);
-      border: 1.5px solid var(--border);
-      color: var(--text-mid);
-      text-decoration: none;
-      padding: 11px 22px; border-radius: 6px;
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(255,255,255,.08);
+      border: 1.5px solid rgba(255,255,255,.2);
+      color: rgba(255,255,255,.8);
+      text-decoration: none; padding: 13px 26px; border-radius: 6px;
       font-size: .88rem; font-weight: 600;
       transition: all .15s;
     }
-    .phone-link:hover {
-      border-color: var(--blue-bdr);
-      box-shadow: 0 2px 12px rgba(47,96,150,.1);
-    }
+    .phone-link:hover { background: rgba(255,255,255,.15); border-color: rgba(255,255,255,.4); }
 
-    /* ── FOOTER ──────────────────────────────────────────── */
+    /* ── WAVE DIVIDER ─────────────────────────────────────── */
+    .wave-top, .wave-bot { line-height: 0; overflow: hidden; }
+    .wave-top svg, .wave-bot svg { display: block; width: 100%; }
+
+    /* ── FOOTER ───────────────────────────────────────────── */
     footer {
-      background: var(--hero-bg);
-      border-top: 1px solid var(--hero-bdr);
-      padding: 26px 52px;
+      background: var(--navy-dk);
+      padding: 32px 60px;
       display: flex; align-items: center; justify-content: space-between;
-      font-size: .78rem; color: var(--hero-muted);
     }
-    .f-logo { color: #c8d8e8; font-weight: 700; font-size: .85rem; }
+    .f-logo { font-size: .9rem; font-weight: 800; color: var(--white); }
+    .f-logo em { font-style: normal; color: var(--gold); }
+    footer p { font-size: .78rem; color: rgba(255,255,255,.3); }
 
-    /* ── RESPONSIVE ──────────────────────────────────────── */
-    @media (max-width: 640px) {
-      nav, footer { padding-left: 20px; padding-right: 20px; }
+    /* ── RESPONSIVE ───────────────────────────────────────── */
+    @media (max-width: 760px) {
+      nav { padding: 0 20px; }
       .nav-links { display: none; }
-      .wrap, #hero { padding-left: 20px; padding-right: 20px; }
-      h1 { font-size: 1.9rem; }
-      .hero-stats { gap: 28px; }
-      footer { flex-direction: column; gap: 6px; text-align: center; }
-      .step { border-right: none; border-bottom: 1px solid var(--border); }
-      .step:last-child { border-bottom: none; }
+      #hero { padding: 130px 20px 80px; }
+      .hero-inner { grid-template-columns: 1fr; }
+      .hero-visual { display: none; }
+      .section { padding: 72px 20px; }
+      .steps-row { grid-template-columns: 1fr; gap: 40px; }
+      .steps-row::before { display: none; }
+      footer { padding: 24px 20px; flex-direction: column; gap: 8px; text-align: center; }
     }
   </style>
 </head>
 <body>
 
+<!-- NAV -->
 <nav>
-  <div class="logo">Profit<span>Architect</span></div>
+  <div class="logo">Profit<em>Architect</em></div>
   <div class="nav-links">
-    <a href="#problem-wrap">Проблема</a>
-    <a href="#process-wrap">Процес</a>
-    <a href="#value-wrap">Результат</a>
-    <a href="#cta-wrap">Контакт</a>
+    <a href="#problem">Проблема</a>
+    <a href="#process">Процес</a>
+    <a href="#value">Результат</a>
+    <a href="#cta" class="nav-cta">Поговорити</a>
   </div>
 </nav>
 
 <!-- HERO -->
-<div id="hero-wrap">
-  <div id="hero">
-    <div class="hero-eyebrow">Консалтинг · Аналітика · IT</div>
-    <h1>Я знаходжу, де ваша компанія<br/><em>втрачає гроші</em> — і виправляю це</h1>
-    <p class="hero-sub">
-      Profit Architect — це системна робота: збираю дані, знаходжу слабкі місця, впроваджую рішення. Ви бачите результат у цифрах.
-    </p>
-    <div class="hero-actions">
-      <a href="#process-wrap" class="btn btn-primary">Як це працює</a>
-      <a href="#cta-wrap" class="btn btn-outline">Поговорити</a>
+<section id="hero">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="hero-eyebrow">Консалтинг · Аналітика · IT</div>
+      <h1>Я знаходжу, де ваша компанія<br/><em>втрачає гроші</em> —<br/>і виправляю це</h1>
+      <p class="hero-sub">
+        Збираю дані, знаходжу слабкі місця, впроваджую інструменти.
+        Системна робота — конкретний результат у цифрах.
+      </p>
+      <div class="hero-btns">
+        <a href="#process" class="btn btn-gold">Як це працює</a>
+        <a href="#cta" class="btn btn-border">Поговорити</a>
+      </div>
     </div>
-    <div class="hero-stats">
-      <div>
-        <div class="stat-val"><span>3</span> кроки</div>
-        <div class="stat-lbl">від аналізу до результату</div>
-      </div>
-      <div>
-        <div class="stat-val">~<span>8</span> тижнів</div>
-        <div class="stat-lbl">до перших змін</div>
-      </div>
-      <div>
-        <div class="stat-val">ROI</div>
-        <div class="stat-lbl">кожне рішення обґрунтоване</div>
+    <div class="hero-visual">
+      <div class="dash-card">
+        <div class="dash-card-header">
+          <div class="dash-title">Аналіз флоту</div>
+          <div class="dash-badge">Live</div>
+        </div>
+        <div class="dash-metric">
+          <div class="dash-metric-val">+<span>18%</span></div>
+          <div class="dash-metric-lbl">ефективність маршрутів</div>
+        </div>
+        <div class="dash-bar-wrap">
+          <div class="dash-bar-label"><span>Паливо</span><span>-12%</span></div>
+          <div class="dash-bar"><div class="dash-bar-fill bar-gold" style="width:72%"></div></div>
+        </div>
+        <div class="dash-bar-wrap">
+          <div class="dash-bar-label"><span>Простої</span><span>-34%</span></div>
+          <div class="dash-bar"><div class="dash-bar-fill bar-blue" style="width:54%"></div></div>
+        </div>
+        <div class="dash-bar-wrap">
+          <div class="dash-bar-label"><span>Завантаженість</span><span>+22%</span></div>
+          <div class="dash-bar"><div class="dash-bar-fill bar-teal" style="width:88%"></div></div>
+        </div>
+        <div class="dash-row">
+          <div class="dash-mini">
+            <div class="dash-mini-val">3</div>
+            <div class="dash-mini-lbl">Фази</div>
+          </div>
+          <div class="dash-mini">
+            <div class="dash-mini-val">8тж</div>
+            <div class="dash-mini-lbl">Перший результат</div>
+          </div>
+          <div class="dash-mini">
+            <div class="dash-mini-val">ROI</div>
+            <div class="dash-mini-lbl">Вимірюємо</div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-</div>
+  <div class="hero-wave">
+    <svg viewBox="0 0 1440 72" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,36 C240,72 480,0 720,36 C960,72 1200,0 1440,36 L1440,72 L0,72 Z" fill="#f4f6fb"/>
+    </svg>
+  </div>
+</section>
 
 <!-- PROBLEM -->
-<div id="problem-wrap">
-  <div class="section wrap">
-    <div class="label">Ситуація на ринку</div>
+<section id="problem" class="section">
+  <div class="wrap">
+    <div class="eyebrow">Ситуація на ринку</div>
     <h2>Типові проблеми тракових компаній, які ростуть</h2>
-    <p class="lead">Ви вже знаєте, що щось іде не так. Але без чітких даних важко зрозуміти — де саме.</p>
-    <div class="grid-3">
-      <div class="card">
-        <div class="card-icon">📊</div>
+    <p class="lead">Ви вже відчуваєте, що щось іде не так. Але без чітких даних важко зрозуміти — де саме.</p>
+    <div class="pain-grid">
+      <div class="pain-card">
+        <div class="pain-icon-wrap">📊</div>
         <h3>Рішення «на відчуття»</h3>
         <p>Немає зведених даних по флоту, маршрутах, витратах. Управління відбувається інтуїтивно, а не на основі фактів.</p>
       </div>
-      <div class="card">
-        <div class="card-icon">⛽</div>
+      <div class="pain-card">
+        <div class="pain-icon-wrap">⛽</div>
         <h3>Непрозорі витрати</h3>
         <p>Паливо, ремонти, простої — кожна стаття живе в окремій таблиці або голові диспетчера. Загальна картина розмита.</p>
       </div>
-      <div class="card">
-        <div class="card-icon">🔁</div>
+      <div class="pain-card">
+        <div class="pain-icon-wrap">🔁</div>
         <h3>Ручні процеси, що гальмують</h3>
         <p>Диспетчеризація, документи, звітність — усе вручну. Це час, помилки та люди, зайняті не тим.</p>
       </div>
-      <div class="card">
-        <div class="card-icon">📉</div>
+      <div class="pain-card">
+        <div class="pain-icon-wrap">📉</div>
         <h3>Ріст без системи</h3>
         <p>Більше машин — більше хаосу. Масштаб не дає прибутку, якщо базові процеси не налаштовані.</p>
       </div>
-      <div class="card">
-        <div class="card-icon">🧩</div>
+      <div class="pain-card">
+        <div class="pain-icon-wrap">🧩</div>
         <h3>Програми, що не зв'язані</h3>
         <p>ELD, TMS, QuickBooks, Excel — острівці даних, які не розмовляють між собою.</p>
       </div>
-      <div class="card">
-        <div class="card-icon">🎯</div>
+      <div class="pain-card">
+        <div class="pain-icon-wrap">🎯</div>
         <h3>Немає пріоритетів</h3>
         <p>Всі задачі здаються важливими. Незрозуміло, що виправити першим, щоб отримати найбільший ефект.</p>
       </div>
     </div>
   </div>
-</div>
+</section>
 
 <!-- PROCESS -->
-<div id="process-wrap">
-  <div class="section wrap">
-    <div class="label">Як я працюю</div>
+<section id="process" class="section">
+  <div class="wrap">
+    <div class="eyebrow">Як я працюю</div>
     <h2>Три фази — від діагнозу до результату</h2>
     <p class="lead">Жодних загальних рекомендацій. Тільки конкретна робота з вашою компанією.</p>
-    <div class="steps">
+    <div class="steps-row">
       <div class="step">
-        <div class="step-num">Фаза 01 — Аналітика</div>
-        <h3>Збираю та читаю дані</h3>
-        <p>Занурення в поточний стан бізнесу. Без упереджень — тільки факти.</p>
-        <ul>
-          <li>Аудит фінансових і операційних потоків</li>
-          <li>Аналіз ефективності флоту та маршрутів</li>
-          <li>Карта процесів: де гроші «витікають»</li>
-          <li>Виявлення точок росту з найвищим ROI</li>
+        <div class="step-dot">📊</div>
+        <div class="step-label">Фаза 01</div>
+        <h3>Аналітика</h3>
+        <p>Занурення в поточний стан бізнесу — без упереджень, тільки факти.</p>
+        <ul class="step-list">
+          <li>Аудит фінансових потоків</li>
+          <li>Аналіз ефективності флоту</li>
+          <li>Карта де гроші «витікають»</li>
+          <li>Точки росту з найвищим ROI</li>
         </ul>
       </div>
       <div class="step">
-        <div class="step-num">Фаза 02 — Стратегія</div>
-        <h3>Пріоритезую та проектую</h3>
+        <div class="step-dot">🗺️</div>
+        <div class="step-label">Фаза 02</div>
+        <h3>Стратегія</h3>
         <p>На основі даних — чіткий план: що робити першим і чому.</p>
-        <ul>
+        <ul class="step-list">
           <li>Звіт із конкретними знахідками</li>
-          <li>Roadmap змін у порядку пріоритетності</li>
-          <li>Фінансове обґрунтування кожного кроку</li>
-          <li>Визначення IT-рішень під задачу</li>
+          <li>Roadmap у порядку пріоритетів</li>
+          <li>Фінансове обґрунтування</li>
+          <li>Визначення IT-рішень</li>
         </ul>
       </div>
       <div class="step">
-        <div class="step-num">Фаза 03 — Впровадження</div>
-        <h3>Реалізую разом із вами</h3>
-        <p>Не залишаю зі звітом у руках. Допомагаю впровадити та виміряти результат.</p>
-        <ul>
-          <li>Налаштування інструментів і систем</li>
-          <li>Інтеграція між існуючими платформами</li>
-          <li>Автоматизація рутинних процесів</li>
-          <li>Метрики для відстеження прогресу</li>
+        <div class="step-dot">⚙️</div>
+        <div class="step-label">Фаза 03</div>
+        <h3>Впровадження</h3>
+        <p>Не залишаю зі звітом. Допомагаю впровадити і виміряти результат.</p>
+        <ul class="step-list">
+          <li>Налаштування систем</li>
+          <li>Інтеграція між платформами</li>
+          <li>Автоматизація рутини</li>
+          <li>Метрики прогресу</li>
         </ul>
       </div>
     </div>
   </div>
-</div>
+</section>
 
 <!-- VALUE -->
-<div id="value-wrap">
-  <div class="section wrap">
-    <div class="label">Що ви отримуєте</div>
+<section id="value" class="section">
+  <div class="wrap">
+    <div class="eyebrow">Що ви отримуєте</div>
     <h2>Конкретний результат, не абстрактні поради</h2>
-    <p class="lead">Кожна послуга — це інструмент для вирішення реальної проблеми.</p>
-    <div class="grid-2-3">
-      <div class="card">
+    <p class="lead">Кожна послуга — інструмент для вирішення реальної проблеми.</p>
+    <div class="value-grid">
+      <div class="value-card">
         <div class="v-tag">Аналітика</div>
         <h3>Ясність у цифрах</h3>
-        <p>Дашборд або звіт, де ви бачите стан компанії в реальному часі: де прибуток, де витрати виходять за межу, які водії або маршрути найефективніші.</p>
+        <p>Дашборд або звіт, де ви бачите стан компанії в реальному часі: прибуток, витрати, ефективність водіїв і маршрутів.</p>
       </div>
-      <div class="card">
+      <div class="value-card">
         <div class="v-tag">IT-рішення</div>
         <h3>Системи, що працюють на вас</h3>
-        <p>Підбір, налаштування або інтеграція TMS, систем обліку, автоматичних звітів. Тільки те, що вирішує конкретну задачу — без зайвого.</p>
+        <p>Підбір, налаштування або інтеграція TMS, обліку, автозвітів. Тільки те, що вирішує конкретну задачу.</p>
       </div>
-      <div class="card">
+      <div class="value-card">
         <div class="v-tag">Консалтинг</div>
         <h3>Рішення під вашу ситуацію</h3>
-        <p>Я не продаю готові пакети. Аналізую вашу компанію і пропоную рівно те, що потрібно — навіть якщо це «нічого не чіпати» в певних місцях.</p>
+        <p>Не продаю готові пакети. Аналізую вашу компанію і пропоную рівно те, що потрібно.</p>
       </div>
-      <div class="card">
+      <div class="value-card">
         <div class="v-tag">Пріоритет</div>
         <h3>Швидкий ефект першим</h3>
-        <p>Знаходжу quick wins — зміни, які дають результат за тижні, не місяці. Потім — системна робота для стабільного росту.</p>
+        <p>Знаходжу quick wins — зміни, що дають результат за тижні, не місяці. Потім — системна робота.</p>
       </div>
-      <div class="card">
+      <div class="value-card">
         <div class="v-tag">Контроль</div>
-        <h3>Ви вирішуєте, що впроваджувати</h3>
-        <p>Я надаю інформацію та варіанти. Фінальне слово — завжди за власником. Моя робота — зробити рішення обґрунтованим і простим.</p>
+        <h3>Ви вирішуєте</h3>
+        <p>Я надаю інформацію та варіанти. Фінальне слово — завжди за власником.</p>
       </div>
-      <div class="card">
+      <div class="value-card">
         <div class="v-tag">Прозорість</div>
-        <h3>Чіткі терміни та критерії успіху</h3>
-        <p>До початку роботи ми узгоджуємо: що вимірюємо, що є результатом, коли — і за якою ціною.</p>
+        <h3>Чіткі критерії успіху</h3>
+        <p>До початку роботи ми узгоджуємо: що вимірюємо, що є результатом, коли і за якою ціною.</p>
       </div>
     </div>
   </div>
-</div>
+</section>
 
 <!-- WHY -->
-<div id="why-wrap">
-  <div class="section wrap">
-    <div class="label">Чому це працює</div>
+<section id="why" class="section">
+  <div class="wrap">
+    <div class="eyebrow">Чому це працює</div>
     <h2>Не консультант — партнер по результату</h2>
-    <div class="why-grid">
+    <div class="why-split">
       <ul class="why-list">
         <li>
-          <div class="why-check">✓</div>
+          <div class="why-num">01</div>
           <div>
             <strong>Дані першими, висновки — потім</strong>
-            <span>Жодних рекомендацій без аналізу вашої конкретної ситуації. Все, що я пропоную — обґрунтоване цифрами.</span>
+            <span>Жодних рекомендацій без аналізу вашої ситуації. Все обґрунтоване цифрами.</span>
           </div>
         </li>
         <li>
-          <div class="why-check">✓</div>
+          <div class="why-num">02</div>
           <div>
             <strong>Технічна та бізнесова мова</strong>
-            <span>Можу і розробити рішення, і пояснити його фінансовий ефект власнику. Немає розриву між «IT каже» і «бізнес хоче».</span>
+            <span>Розробляю рішення і пояснюю його фінансовий ефект. Немає розриву між IT і бізнесом.</span>
           </div>
         </li>
         <li>
-          <div class="why-check">✓</div>
+          <div class="why-num">03</div>
           <div>
             <strong>Фокус на окупності</strong>
-            <span>Кожна пропозиція оцінюється через призму ROI. Якщо зміна не окупається — не раджу її.</span>
+            <span>Кожна пропозиція через призму ROI. Якщо зміна не окупається — не раджу її.</span>
           </div>
         </li>
         <li>
-          <div class="why-check">✓</div>
+          <div class="why-num">04</div>
           <div>
-            <strong>Робота без прихованих агенд</strong>
-            <span>Я не просуваю конкретний софт або вендора. Підбираю те, що підходить вам — або раджу не купувати нічого.</span>
+            <strong>Без прихованих агенд</strong>
+            <span>Не просуваю конкретний софт або вендора. Підбираю те, що підходить — або раджу не купувати нічого.</span>
           </div>
         </li>
         <li>
-          <div class="why-check">✓</div>
+          <div class="why-num">05</div>
           <div>
-            <strong>Невелике залучення вашої команди</strong>
-            <span>Розумію, що час власника та команди — ресурс. Адаптую процес так, щоб не паразитувати на ньому.</span>
+            <strong>Мінімальне залучення команди</strong>
+            <span>Час власника і команди — ресурс. Адаптую процес так, щоб не паразитувати на ньому.</span>
           </div>
         </li>
       </ul>
-      <div class="quote-block">
-        <blockquote>
-          "Більшість компаній не мають проблему нестачі даних.
-          Вони мають проблему надлишку неструктурованих даних
-          і брак людини, яка може перетворити їх на рішення.
-          Саме це я і роблю."
-        </blockquote>
-        <div class="q-author">— Maksim Muric, Profit Architect</div>
+      <div class="quote-wrap">
+        <div class="quote-card">
+          <blockquote>
+            «Більшість компаній не мають проблему нестачі даних. Вони мають проблему надлишку неструктурованих даних і брак людини, яка може перетворити їх на рішення. Саме це я і роблю.»
+          </blockquote>
+          <div class="q-author">— Maksim Muric, Profit Architect</div>
+          <div class="quote-stats">
+            <div class="q-stat">
+              <div class="q-stat-val">3</div>
+              <div class="q-stat-lbl">Фази роботи</div>
+            </div>
+            <div class="q-stat">
+              <div class="q-stat-val">~8тж</div>
+              <div class="q-stat-lbl">До першого результату</div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-</div>
+</section>
 
 <!-- CTA -->
-<div id="cta-wrap">
-  <div id="cta" class="wrap">
-    <div class="label">Наступний крок</div>
+<div class="wave-top" style="background:var(--white)">
+  <svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,30 C360,60 1080,0 1440,30 L1440,60 L0,60 Z" fill="#111f42"/>
+  </svg>
+</div>
+<section id="cta" class="section">
+  <div class="cta-inner">
+    <div class="eyebrow">Наступний крок</div>
     <h2>Починаємо з безкоштовної діагностичної розмови</h2>
     <p class="lead">
-      30–45 хвилин, щоб зрозуміти ситуацію у вашій компанії.
-      Без зобов'язань — і вже з конкретними спостереженнями наприкінці.
+      30–45 хвилин — і у вас вже є конкретні спостереження по вашій компанії. Без зобов'язань.
     </p>
-    <div class="cta-actions">
-      <a href="mailto:maksimmurich@gmail.com" class="btn btn-primary">Написати Maksim</a>
+    <div class="cta-btns">
+      <a href="mailto:maksimmurich@gmail.com" class="btn btn-gold">Написати Maksim</a>
       <a href="tel:+12242013963" class="phone-link">📞 +1 (224) 201-3963</a>
     </div>
   </div>
-</div>
+</section>
 
 <!-- FOOTER -->
 <footer>
-  <div class="f-logo">ProfitArchitect</div>
-  <div>Консалтинг · Аналітика · IT — транспортний бізнес</div>
-  <div>© 2026 Maksim Muric</div>
+  <div class="f-logo">Profit<em>Architect</em></div>
+  <p>Консалтинг · Аналітика · IT — транспортний бізнес</p>
+  <p>© 2026 Maksim Muric</p>
 </footer>
 
 </body>
