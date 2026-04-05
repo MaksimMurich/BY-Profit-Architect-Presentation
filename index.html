@@ -497,6 +497,159 @@
   </div>
 </section>
 
+<!-- DRIVER LIFT VISUALIZATION -->
+<section id="driver-lift" style="background:linear-gradient(170deg,var(--navy-dk) 0%,var(--navy) 100%);position:relative;overflow:hidden;">
+
+  <!-- Wave top: off-white → navy -->
+  <div style="line-height:0;">
+    <svg viewBox="0 0 1440 72" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,36 C240,0 480,72 720,36 C960,0 1200,72 1440,36 L1440,0 L0,0 Z" fill="#f4f6fb"/>
+    </svg>
+  </div>
+
+  <div class="wrap" style="padding:64px 0 52px;">
+    <div class="eyebrow fi" style="color:var(--gold);">Ефект для всього флоту</div>
+    <h2 class="fi d1" style="color:var(--white);">Підтягуємо слабких — <em style="color:var(--gold);">ростить весь флот</em></h2>
+    <p class="lead fi d2" style="color:rgba(255,255,255,.5);margin-bottom:52px;">Персональні рекомендації та щоденна фіксація показників підвищують ефективність водіїв нижче середнього до середнього рівня — і весь автопарк зростає разом.</p>
+
+    <!-- Counter -->
+    <div class="fi d3" style="text-align:center;margin-bottom:48px;">
+      <div style="font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:10px;">Приріст ефективності флоту</div>
+      <div style="display:inline-flex;align-items:flex-start;gap:2px;line-height:1;">
+        <span style="font-size:clamp(2rem,3.5vw,3rem);font-weight:800;color:rgba(255,255,255,.2);padding-top:10px;">+</span>
+        <span id="lift-num" style="font-size:clamp(4.5rem,9vw,7rem);font-weight:800;color:var(--gold);font-variant-numeric:tabular-nums;min-width:1.1ch;text-align:center;">0</span>
+        <span style="font-size:clamp(2rem,3.5vw,3rem);font-weight:800;color:var(--gold);padding-top:10px;">%</span>
+      </div>
+      <div id="lift-status" style="font-size:.82rem;color:rgba(255,255,255,.28);margin-top:8px;transition:color .6s;">До впровадження Profit Architect</div>
+    </div>
+
+    <!-- Driver field -->
+    <div id="driver-field" style="position:relative;height:460px;max-width:880px;margin:0 auto 28px;">
+      <div style="position:absolute;top:18px;left:0;font-size:.66rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:rgba(88,210,110,.55);">▲ Вище середнього</div>
+      <div style="position:absolute;bottom:18px;left:0;font-size:.66rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:rgba(220,75,75,.55);">▼ Нижче середнього</div>
+    </div>
+
+    <!-- Replay button -->
+    <div style="text-align:center;margin-top:4px;">
+      <button onclick="window._liftReplay&&window._liftReplay()" style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.35);font-size:.72rem;padding:7px 22px;border-radius:20px;cursor:pointer;letter-spacing:.04em;transition:background .2s;" onmouseover="this.style.background='rgba(255,255,255,.13)'" onmouseout="this.style.background='rgba(255,255,255,.07)'">↺ Переглянути знову</button>
+    </div>
+  </div>
+
+  <!-- Wave bottom: navy → off-white -->
+  <div style="line-height:0;">
+    <svg viewBox="0 0 1440 72" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,36 C240,72 480,0 720,36 C960,72 1200,0 1440,36 L1440,72 L0,72 Z" fill="#f4f6fb"/>
+    </svg>
+  </div>
+
+  <script>
+  (function () {
+    var FIELD_H = 460, AVG_Y = 230, PX = 8;
+
+    var drivers = [
+      { lbl:'В.К.', b:-21, a:-5,  x: 3 },
+      { lbl:'Р.М.', b:-17, a:-4,  x:11 },
+      { lbl:'О.Г.', b:-13, a:-2,  x:19 },
+      { lbl:'Д.Б.', b: -9, a:-1,  x:28 },
+      { lbl:'М.С.', b: -5, a: 1,  x:38 },
+      { lbl:'С.В.', b: -2, a: 2,  x:47 },
+      { lbl:'А.Н.', b:  1, a: 4,  x:55 },
+      { lbl:'П.Д.', b:  4, a: 6,  x:63 },
+      { lbl:'Н.Ф.', b:  7, a: 9,  x:71 },
+      { lbl:'Ю.К.', b: 13, a:14,  x:79 },
+      { lbl:'І.Р.', b: 18, a:18,  x:87 },
+      { lbl:'В.П.', b: 22, a:22,  x:93 },
+    ];
+
+    function toTop(s) { return AVG_Y - s * PX - 26; }
+
+    function toColor(s) {
+      if (s <= -14) return '#c03030';
+      if (s <=  -7) return '#cc5525';
+      if (s <=  -1) return '#cc8e20';
+      if (s <=   5) return '#b8ac18';
+      if (s <=  11) return '#72c018';
+      return '#24a848';
+    }
+
+    var field = document.getElementById('driver-field');
+
+    // Average line
+    var line = document.createElement('div');
+    line.style.cssText = 'position:absolute;left:0;right:0;top:' + AVG_Y + 'px;transform:translateY(-50%);pointer-events:none;z-index:1;';
+    line.innerHTML = '<div style="height:1.5px;background:linear-gradient(90deg,transparent 0%,rgba(245,183,49,.6) 15%,rgba(245,183,49,.6) 85%,transparent 100%);position:relative;"><div style="position:absolute;right:0;top:-12px;font-size:.64rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--gold);background:rgba(17,31,66,.95);padding:2px 10px;border-radius:4px;border:1px solid rgba(245,183,49,.2);">Середній рівень</div></div>';
+    field.appendChild(line);
+
+    // Bubbles
+    var els = drivers.map(function(d) {
+      var el = document.createElement('div');
+      var s = d.b >= 0 ? '+' : '';
+      el.style.cssText = 'position:absolute;left:calc(' + d.x + '% - 26px);top:' + toTop(d.b) + 'px;width:52px;height:52px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:.64rem;font-weight:800;color:#fff;text-shadow:0 1px 4px rgba(0,0,0,.4);border:2px solid rgba(255,255,255,.15);box-shadow:0 4px 20px rgba(0,0,0,.3);background:' + toColor(d.b) + ';cursor:default;';
+      el.innerHTML = '<span style="line-height:1.2">' + d.lbl + '</span><span style="font-size:.56rem;opacity:.9;line-height:1.2">' + s + d.b + '%</span>';
+      field.appendChild(el);
+      return el;
+    });
+
+    var active = false;
+
+    function play() {
+      if (active) return;
+      active = true;
+
+      // Reset
+      drivers.forEach(function(d, i) {
+        els[i].style.transition = 'none';
+        els[i].style.top = toTop(d.b) + 'px';
+        els[i].style.background = toColor(d.b);
+        var s = d.b >= 0 ? '+' : '';
+        els[i].innerHTML = '<span style="line-height:1.2">' + d.lbl + '</span><span style="font-size:.56rem;opacity:.9;line-height:1.2">' + s + d.b + '%</span>';
+      });
+      document.getElementById('lift-num').textContent = '0';
+      var statusEl = document.getElementById('lift-status');
+      statusEl.textContent = 'До впровадження Profit Architect';
+      statusEl.style.color = 'rgba(255,255,255,.28)';
+
+      requestAnimationFrame(function() { requestAnimationFrame(function() {
+        // Counter
+        var n = 0;
+        var tid = setInterval(function() {
+          n++;
+          document.getElementById('lift-num').textContent = n;
+          if (n >= 8) clearInterval(tid);
+        }, 230);
+
+        // Lift bubbles with stagger
+        drivers.forEach(function(d, i) {
+          setTimeout(function() {
+            els[i].style.transition = 'top 1.4s cubic-bezier(.34,1.06,.64,1), background-color 1s ease';
+            els[i].style.top = toTop(d.a) + 'px';
+            els[i].style.background = toColor(d.a);
+            setTimeout(function() {
+              var s = d.a >= 0 ? '+' : '';
+              els[i].innerHTML = '<span style="line-height:1.2">' + d.lbl + '</span><span style="font-size:.56rem;opacity:.9;line-height:1.2">' + s + d.a + '%</span>';
+            }, 1200);
+          }, 500 + i * 85);
+        });
+
+        // Final label
+        setTimeout(function() {
+          statusEl.textContent = '✓ Після впровадження Profit Architect';
+          statusEl.style.color = 'rgba(90,205,110,.75)';
+          active = false;
+        }, 500 + drivers.length * 85 + 1500);
+      }); });
+    }
+
+    window._liftReplay = function() { active = false; play(); };
+
+    var io = new IntersectionObserver(function(ents) {
+      if (ents[0].isIntersecting) { setTimeout(play, 400); io.disconnect(); }
+    }, { threshold: 0.2 });
+    io.observe(document.getElementById('driver-lift'));
+  })();
+  </script>
+</section>
+
 <!-- PROBLEM -->
 <section id="problem" class="section">
   <div class="wrap">
