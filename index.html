@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="index.blocks/business-goals.css" />
   <link rel="stylesheet" href="index.blocks/growth-problem.css" />
   <link rel="stylesheet" href="index.blocks/one-person.css" />
+  <link rel="stylesheet" href="index.blocks/demo-preview.css" />
 </head>
 <body>
 
@@ -339,7 +340,7 @@
       <em style="color:var(--gold);font-style:normal;">і рахунок, який важко виправдати</em>
     </h2>
     <p class="fi d2" style="color:rgba(255,255,255,.5);font-size:.95rem;line-height:1.8;max-width:520px;margin-bottom:48px;">
-      Зрозуміло, що потрібно. Незрозуміло, хто за це відповідає і як це оплатити без гарантій результату.
+      Зрозуміло, що потрібно. Незрозуміло, хто за це відповідає.
     </p>
 
     <div class="fi d2" style="font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:14px;">Що теоретично потрібно</div>
@@ -397,6 +398,27 @@
     <svg viewBox="0 0 1440 72" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M0,36 C240,72 480,0 720,36 C960,72 1200,0 1440,36 L1440,72 L0,72 Z" fill="#f4f6fb"/>
     </svg>
+  </div>
+</section>
+<!-- ══════════════════════════════════════════════════════════ -->
+
+<!-- ══ SECTION 4: DEMO ══════════════════════════════════════════ -->
+<section id="demo" class="section" style="background:var(--off);padding-bottom:80px;">
+  <div class="wrap">
+    <div class="eyebrow fi">Демо</div>
+    <h2 class="fi d1">Ось як це може виглядати<br><em style="color:var(--navy);">у живому вигляді</em></h2>
+    <p class="lead fi d2" style="margin-bottom:48px;">Без реальних даних — але щоб зрозуміти рівень деталізації та можливості. Клікніть щоб відкрити у повному розмірі.</p>
+
+    <div class="dp-preview-wrap fi d3" onclick="window.open('dashboard-demo.html','_blank')">
+      <div class="dp-chrome">
+        <div class="dp-chrome-dots"><span></span><span></span><span></span></div>
+        <div class="dp-chrome-url">Fleet Dashboard — Profit Architect Demo</div>
+      </div>
+      <iframe src="dashboard-demo.html" scrolling="no" tabindex="-1" aria-hidden="true"></iframe>
+      <div class="dp-overlay">
+        <a class="dp-open-btn" href="dashboard-demo.html" target="_blank" onclick="event.stopPropagation()">↗ Відкрити на повний екран</a>
+      </div>
+    </div>
   </div>
 </section>
 <!-- ══════════════════════════════════════════════════════════ -->

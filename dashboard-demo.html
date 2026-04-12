@@ -183,6 +183,17 @@
   .overlay-stat-value { font-size: 1.25rem; font-weight: 700; color: var(--navy); margin-top: 4px; }
   .overlay-lanes { font-size: 0.82rem; color: var(--muted); }
   .overlay-lanes span { display: inline-block; background: rgba(26,47,94,0.07); border-radius: 4px; padding: 3px 8px; margin: 3px 3px 0 0; color: var(--navy); font-weight: 500; }
+
+  /* ─── Pages ─── */
+  .page { display: none; }
+  .page.active { display: block; }
+  .page-placeholder {
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    min-height: 400px; gap: 16px; color: var(--muted);
+  }
+  .page-placeholder .ph-icon { font-size: 3rem; opacity: .5; }
+  .page-placeholder h3 { font-size: 1.1rem; font-weight: 700; color: var(--navy); }
+  .page-placeholder p  { font-size: .85rem; max-width: 360px; text-align: center; line-height: 1.65; }
 </style>
 </head>
 <body>
@@ -194,13 +205,13 @@
     <div class="logo-sub">Fleet Dashboard</div>
   </div>
   <nav class="sidebar-nav">
-    <div class="nav-item active"><span class="nav-icon">▦</span> Dashboard</div>
-    <div class="nav-item"><span class="nav-icon">🚛</span> Водії</div>
-    <div class="nav-item"><span class="nav-icon">📋</span> Диспетчери</div>
-    <div class="nav-item"><span class="nav-icon">🗺</span> Лейни</div>
-    <div class="nav-item"><span class="nav-icon">🔧</span> Флот</div>
-    <div class="nav-item"><span class="nav-icon">📊</span> Звіти</div>
-    <div class="nav-item"><span class="nav-icon">⚙</span> Налаштування</div>
+    <div class="nav-item active" data-page="dashboard" data-title="Огляд компанії"><span class="nav-icon">▦</span> Dashboard</div>
+    <div class="nav-item" data-page="drivers" data-title="Водії"><span class="nav-icon">🚛</span> Водії</div>
+    <div class="nav-item" data-page="dispatchers" data-title="Диспетчери"><span class="nav-icon">📋</span> Диспетчери</div>
+    <div class="nav-item" data-page="lanes" data-title="Лейни"><span class="nav-icon">🗺</span> Лейни</div>
+    <div class="nav-item" data-page="fleet" data-title="Флот"><span class="nav-icon">🔧</span> Флот</div>
+    <div class="nav-item" data-page="reports" data-title="Звіти"><span class="nav-icon">📊</span> Звіти</div>
+    <div class="nav-item" data-page="settings" data-title="Налаштування"><span class="nav-icon">⚙</span> Налаштування</div>
   </nav>
   <div class="sidebar-footer">Demo · Profit Architect © 2025</div>
 </aside>
@@ -211,7 +222,7 @@
   <!-- Topbar -->
   <header class="topbar">
     <div class="topbar-left">
-      <div class="topbar-title">Огляд компанії</div>
+      <div class="topbar-title" id="topbar-title">Огляд компанії</div>
       <div class="topbar-date">10 квітня 2025 · Flatbed / Step Deck · 35 траків</div>
     </div>
     <div class="topbar-right">
@@ -224,6 +235,8 @@
     </div>
   </header>
 
+  <!-- ══ PAGE: DASHBOARD ══ -->
+  <div class="page active" id="page-dashboard">
   <div class="content">
 
     <!-- ── KPI Cards ── -->
@@ -362,6 +375,98 @@
     </div>
 
   </div><!-- /content -->
+  </div><!-- /page-dashboard -->
+
+  <!-- ══ PAGE: ВОДІЇ ══ -->
+  <div class="page" id="page-drivers">
+  <div class="content">
+    <div class="kpi-row">
+      <div class="kpi-card c-green"><div class="kpi-label">Активних водіїв</div><div class="kpi-value">31</div><div class="kpi-sub">з 35 у флоті</div><div class="kpi-delta up">▲ +2 vs минулий міс.</div></div>
+      <div class="kpi-card c-gold"><div class="kpi-label">Середній дохід / водій</div><div class="kpi-value">$5,355</div><div class="kpi-sub">за місяць</div><div class="kpi-delta up">▲ +5%</div></div>
+      <div class="kpi-card c-green"><div class="kpi-label">Топ водій</div><div class="kpi-value">Marcus J.</div><div class="kpi-sub">$6,840 / міс</div><div class="kpi-delta up">▲ Тир 1</div></div>
+      <div class="kpi-card c-red"><div class="kpi-label">Нижче норми</div><div class="kpi-value">2 водії</div><div class="kpi-sub">&lt;$4,500 / міс</div><div class="kpi-delta warn">● Потребують уваги</div></div>
+    </div>
+    <div class="charts-row row-6-4">
+      <div class="chart-card">
+        <div class="chart-header"><div><div class="chart-title">Рейтинг водіїв — чистий прибуток</div><div class="chart-sub">За квітень 2025 · клік → деталі</div></div></div>
+        <div id="chart-drivers-page"></div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-header"><div><div class="chart-title">CPM по водіях</div><div class="chart-sub">Вартість палива на милю</div></div></div>
+        <div id="chart-drivers-cpm"></div>
+      </div>
+    </div>
+    <div class="alerts-row">
+      <div class="alerts-card">
+        <div class="chart-title">Водії · статус</div>
+        <div class="alerts-list">
+          <div class="alert-item crit"><div class="alert-dot"></div><div class="alert-text"><strong>Kevin Walsh</strong> — 3-й тиждень поспіль нижче $4,500. Рекомендовано переглянути лейни.</div><div class="alert-time">сьогодні</div><button class="alert-btn">Деталі</button></div>
+          <div class="alert-item warn"><div class="alert-dot"></div><div class="alert-text"><strong>James T.</strong> — CPM $0.74, вище середнього по флоту. Перевірити маршрути заправки.</div><div class="alert-time">вчора</div><button class="alert-btn">Деталі</button></div>
+          <div class="alert-item info"><div class="alert-dot"></div><div class="alert-text"><strong>Marcus J.</strong> — 19 рейсів за місяць, найкращий показник по флоту.</div><div class="alert-time">01 квітня</div><button class="alert-btn">Профіль</button></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div><!-- /page-drivers -->
+
+  <!-- ══ PAGE: ДИСПЕТЧЕРИ ══ -->
+  <div class="page" id="page-dispatchers">
+  <div class="content">
+    <div class="kpi-row">
+      <div class="kpi-card c-green"><div class="kpi-label">Диспетчерів</div><div class="kpi-value">4</div><div class="kpi-sub">активних</div><div class="kpi-delta up">▲ Стабільно</div></div>
+      <div class="kpi-card c-gold"><div class="kpi-label">Топ диспетчер</div><div class="kpi-value">Anna K.</div><div class="kpi-sub">$68,200 / місяць</div><div class="kpi-delta up">▲ Тир 1</div></div>
+      <div class="kpi-card c-blue"><div class="kpi-label">Середнє вантажів</div><div class="kpi-value">47</div><div class="kpi-sub">рейсів / диспетчер</div><div class="kpi-delta up">▲ +4 vs минулий міс.</div></div>
+      <div class="kpi-card c-red"><div class="kpi-label">Нижче норми</div><div class="kpi-value">1</div><div class="kpi-sub">диспетчер</div><div class="kpi-delta warn">● Увага</div></div>
+    </div>
+    <div class="charts-row row-5-5">
+      <div class="chart-card">
+        <div class="chart-header"><div><div class="chart-title">Ефективність диспетчерів</div><div class="chart-sub">Виручка та кількість рейсів</div></div></div>
+        <div id="chart-dispatchers-page"></div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-header"><div><div class="chart-title">Навантаження по тижнях</div><div class="chart-sub">Кількість рейсів на диспетчера</div></div></div>
+        <div id="chart-dispatchers-weeks"></div>
+      </div>
+    </div>
+  </div>
+  </div><!-- /page-dispatchers -->
+
+  <!-- ══ PAGE: ЛЕЙНИ ══ -->
+  <div class="page" id="page-lanes">
+  <div class="content">
+    <div class="kpi-row">
+      <div class="kpi-card c-green"><div class="kpi-label">Активних лейнів</div><div class="kpi-value">12</div><div class="kpi-sub">за поточний місяць</div><div class="kpi-delta up">▲ +2 нових</div></div>
+      <div class="kpi-card c-gold"><div class="kpi-label">Топ лейн</div><div class="kpi-value">CHI→ATL</div><div class="kpi-sub">$1.34/mi чистих</div><div class="kpi-delta up">▲ Прибутковий</div></div>
+      <div class="kpi-card c-blue"><div class="kpi-label">Середній CPM лейну</div><div class="kpi-value">$0.98/mi</div><div class="kpi-sub">чистий прибуток</div><div class="kpi-delta up">▲ +$0.06 vs березень</div></div>
+      <div class="kpi-card c-red"><div class="kpi-label">Збиткових лейнів</div><div class="kpi-value">1</div><div class="kpi-sub">KC → STL</div><div class="kpi-delta warn">● $0.72/mi — низько</div></div>
+    </div>
+    <div class="charts-row row-5-5">
+      <div class="chart-card">
+        <div class="chart-header"><div><div class="chart-title">Прибутковість лейнів ($/mi)</div><div class="chart-sub">Чистий прибуток на милю по лейнах</div></div></div>
+        <div id="chart-lanes-page"></div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-header"><div><div class="chart-title">Кількість рейсів по лейнах</div><div class="chart-sub">Квітень 2025</div></div></div>
+        <div id="chart-lanes-loads"></div>
+      </div>
+    </div>
+    <div class="alerts-row">
+      <div class="alerts-card">
+        <div class="chart-title">Лейни · увага</div>
+        <div class="alerts-list">
+          <div class="alert-item warn"><div class="alert-dot"></div><div class="alert-text"><strong>Kansas City → St.Louis</strong> — $0.72/mi, нижче порогу $0.80. Рекомендовано переглянути частоту або ставку.</div><div class="alert-time">вчора</div><button class="alert-btn">Аналіз</button></div>
+          <div class="alert-item info"><div class="alert-dot"></div><div class="alert-text"><strong>Chicago → Atlanta</strong> — стабільно топовий лейн 3 місяці поспіль. Розглянути збільшення частоти.</div><div class="alert-time">01 квітня</div><button class="alert-btn">Деталі</button></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div><!-- /page-lanes -->
+
+  <!-- ══ ІНШІ СТОРІНКИ (заглушки) ══ -->
+  <div class="page" id="page-fleet"><div class="content"><div class="page-placeholder"><div class="ph-icon">🔧</div><h3>Флот</h3><p>Стан траків, ТО, пробіг, простої. Буде доступно в повній версії.</p></div></div></div>
+  <div class="page" id="page-reports"><div class="content"><div class="page-placeholder"><div class="ph-icon">📊</div><h3>Звіти</h3><p>Щомісячні та квартальні зведення, PDF-експорт. Буде доступно в повній версії.</p></div></div></div>
+  <div class="page" id="page-settings"><div class="content"><div class="page-placeholder"><div class="ph-icon">⚙</div><h3>Налаштування</h3><p>Доступи, ролі, інтеграції, алерт-пороги. Буде доступно в повній версії.</p></div></div></div>
+
 </main>
 
 <!-- ── Driver Detail Overlay ── -->
@@ -612,6 +717,136 @@ function closeOverlay() {
 document.getElementById('overlay').addEventListener('click', function(e) {
   if (e.target === this) closeOverlay();
 });
+
+// ── SIDEBAR NAV ───────────────────────────────────────────────────────
+var chartsInitialized = { dashboard: true };
+
+document.querySelectorAll('.nav-item').forEach(function(item) {
+  item.addEventListener('click', function() {
+    var page = item.getAttribute('data-page');
+    var title = item.getAttribute('data-title');
+
+    // switch active nav
+    document.querySelectorAll('.nav-item').forEach(function(i){ i.classList.remove('active'); });
+    item.classList.add('active');
+
+    // switch page
+    document.querySelectorAll('.page').forEach(function(p){ p.classList.remove('active'); });
+    document.getElementById('page-' + page).classList.add('active');
+
+    // update topbar
+    document.getElementById('topbar-title').textContent = title;
+
+    // lazy-init charts for new pages
+    if (!chartsInitialized[page]) {
+      chartsInitialized[page] = true;
+      initPageCharts(page);
+    }
+  });
+});
+
+function initPageCharts(page) {
+  var baseBar = { toolbar:{show:false}, animations:{enabled:true,speed:400}, fontFamily:'system-ui,sans-serif' };
+
+  if (page === 'drivers') {
+    // drivers page — duplicate of main driver chart
+    new ApexCharts(document.getElementById('chart-drivers-page'), {
+      chart: Object.assign({}, baseBar, { type:'bar', height:280 }),
+      plotOptions: { bar:{ borderRadius:4, horizontal:true, barHeight:'55%' } },
+      series: [{ name:'Чистий прибуток', data: drivers.map(function(d){return d.val;}) }],
+      colors: drivers.map(function(d){ return d.val>6500?'#10b981':d.val>5500?'#3b82f6':d.val>4500?'#f5b731':'#ef4444'; }),
+      xaxis: { categories: drivers.map(function(d){return d.name;}), labels:{formatter:function(v){return '$'+v.toLocaleString();},style:{colors:'#1c2640',fontSize:'12px'}} },
+      yaxis: { labels:{style:{colors:'#1c2640',fontSize:'12px',fontWeight:600}} },
+      grid: { borderColor:'#e2e8f4', strokeDashArray:4 },
+      dataLabels: { enabled:true, formatter:function(v){return '$'+v.toLocaleString();}, style:{fontSize:'11px',colors:['#fff'],fontWeight:700} },
+      tooltip: { y:{ formatter:function(v){return '$'+v.toLocaleString();} } }
+    }).render();
+
+    new ApexCharts(document.getElementById('chart-drivers-cpm'), {
+      chart: Object.assign({}, baseBar, { type:'bar', height:280 }),
+      plotOptions: { bar:{ borderRadius:4, columnWidth:'55%' } },
+      series: [{ name:'CPM ($/mi)', data: drivers.map(function(d){return d.cpm;}) }],
+      colors: ['#1a2f5e'],
+      xaxis: { categories: drivers.map(function(d){return d.name;}), labels:{style:{colors:'#6b7a9a',fontSize:'11px'}}, axisBorder:{show:false} },
+      yaxis: { min:0.60, max:0.80, labels:{formatter:function(v){return '$'+v.toFixed(2);},style:{colors:'#6b7a9a',fontSize:'11px'}} },
+      grid: { borderColor:'#e2e8f4', strokeDashArray:4 },
+      annotations: { yaxis:[{ y:0.70, borderColor:'#ef4444', borderWidth:1, strokeDashArray:4, label:{text:'Ринок $0.70',style:{color:'#ef4444',fontSize:'11px',background:'transparent'},position:'left',offsetX:4} }] },
+      dataLabels: { enabled:true, formatter:function(v){return '$'+v.toFixed(2);}, style:{fontSize:'11px',colors:['#fff'],fontWeight:700} },
+      tooltip: { y:{ formatter:function(v){return '$'+v.toFixed(2)+'/mi';} } }
+    }).render();
+  }
+
+  if (page === 'dispatchers') {
+    var dispatchers = ['Anna K.','Mykola S.','Jorge R.','Lisa T.'];
+    var dispRev2 = [68200,61400,57800,49200];
+    var dispLoads2 = [58,52,48,31];
+
+    new ApexCharts(document.getElementById('chart-dispatchers-page'), {
+      chart: Object.assign({}, baseBar, { type:'bar', height:260 }),
+      plotOptions: { bar:{ borderRadius:4, columnWidth:'55%', grouped:true } },
+      series: [
+        { name:'Виручка ($)', data: dispRev2 },
+        { name:'Вантажів ×1000', data: dispLoads2.map(function(v){return v*1000;}) }
+      ],
+      colors: ['#1a2f5e','#f5b731'],
+      xaxis: { categories: dispatchers, labels:{style:{colors:'#1c2640',fontSize:'12px',fontWeight:600}}, axisBorder:{show:false}, axisTicks:{show:false} },
+      yaxis: { show:false },
+      grid: { borderColor:'#e2e8f4', strokeDashArray:4 },
+      dataLabels: { enabled:true, formatter:function(v,o){ return o.seriesIndex===0?'$'+Math.round(v/1000)+'K':(v/1000).toFixed(0); }, style:{fontSize:'11px',colors:['#fff'],fontWeight:700} },
+      legend: { position:'top', horizontalAlign:'right', fontSize:'12px' },
+      tooltip: { shared:true, y:[{formatter:function(v){return '$'+v.toLocaleString();}},{formatter:function(v){return (v/1000).toFixed(0)+' рейсів';}}] }
+    }).render();
+
+    new ApexCharts(document.getElementById('chart-dispatchers-weeks'), {
+      chart: Object.assign({}, baseBar, { type:'line', height:260 }),
+      series: [
+        { name:'Anna K.',   data:[12,14,13,15,14,16] },
+        { name:'Mykola S.', data:[11,12,11,13,12,14] },
+        { name:'Jorge R.',  data:[10,11,10,12,11,13] },
+        { name:'Lisa T.',   data:[7,8,7,8,7,6] }
+      ],
+      colors: ['#10b981','#1a2f5e','#3b82f6','#f59e0b'],
+      xaxis: { categories:['W7','W8','W9','W10','W11','W12'], labels:{style:{colors:'#6b7a9a',fontSize:'11px'}}, axisBorder:{show:false} },
+      yaxis: { labels:{style:{colors:'#6b7a9a',fontSize:'11px'}} },
+      grid: { borderColor:'#e2e8f4', strokeDashArray:4 },
+      stroke: { width:2, curve:'smooth' },
+      markers: { size:3 },
+      legend: { position:'top', horizontalAlign:'right', fontSize:'12px' },
+      tooltip: { shared:true }
+    }).render();
+  }
+
+  if (page === 'lanes') {
+    var laneNames = ['CHI→ATL','DAL→HOU','LA→PHX','ATL→MIA','CHI→DET','DAL→DEN','HOU→MIA','KC→STL'];
+    var laneCpm   = [1.34,1.28,1.22,1.18,1.15,1.09,1.02,0.72];
+    var laneLoads = [24,21,18,16,14,12,10,8];
+
+    new ApexCharts(document.getElementById('chart-lanes-page'), {
+      chart: Object.assign({}, baseBar, { type:'bar', height:280 }),
+      plotOptions: { bar:{ borderRadius:4, horizontal:true, barHeight:'55%' } },
+      series: [{ name:'$/mi', data: laneCpm }],
+      colors: laneCpm.map(function(v){ return v>=1.20?'#10b981':v>=1.00?'#3b82f6':v>=0.80?'#f59e0b':'#ef4444'; }),
+      xaxis: { categories: laneNames, labels:{formatter:function(v){return '$'+v.toFixed(2);},style:{colors:'#1c2640',fontSize:'11px'}} },
+      yaxis: { labels:{style:{colors:'#1c2640',fontSize:'12px',fontWeight:600}} },
+      grid: { borderColor:'#e2e8f4', strokeDashArray:4 },
+      annotations: { xaxis:[{ x:0.80, borderColor:'#ef4444', strokeDashArray:4, borderWidth:1, label:{text:'Мін. $0.80',style:{color:'#ef4444',fontSize:'11px',background:'transparent'},position:'bottom'} }] },
+      dataLabels: { enabled:true, formatter:function(v){return '$'+v.toFixed(2);}, style:{fontSize:'11px',colors:['#fff'],fontWeight:700} },
+      tooltip: { y:{ formatter:function(v){return '$'+v.toFixed(2)+'/mi';} } }
+    }).render();
+
+    new ApexCharts(document.getElementById('chart-lanes-loads'), {
+      chart: Object.assign({}, baseBar, { type:'bar', height:280 }),
+      plotOptions: { bar:{ borderRadius:4, columnWidth:'60%' } },
+      series: [{ name:'Рейсів', data: laneLoads }],
+      colors: ['#1a2f5e'],
+      xaxis: { categories: laneNames, labels:{style:{colors:'#6b7a9a',fontSize:'10px'},rotate:-30}, axisBorder:{show:false} },
+      yaxis: { labels:{style:{colors:'#6b7a9a',fontSize:'11px'}} },
+      grid: { borderColor:'#e2e8f4', strokeDashArray:4 },
+      dataLabels: { enabled:true, style:{fontSize:'11px',colors:['#fff'],fontWeight:700} },
+      tooltip: { y:{ formatter:function(v){return v+' рейсів';} } }
+    }).render();
+  }
+}
 
 // ── FILTER BUTTONS ────────────────────────────────────────────────────
 document.querySelectorAll('.filter-btn').forEach(function(btn) {
