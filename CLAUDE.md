@@ -1,8 +1,25 @@
 # Profit Architect — CLAUDE.md
 
-## Files
-- `index.html` — HTML structure + inline IIFE JS (per-section animations)
-- `style.css` — all styles (extracted from HTML)
+## File structure
+```
+style.css                  ← global ONLY: tokens, nav, utilities, footer, fi, responsive (~120 lines)
+index.blocks/
+  {name}.html              ← standalone dev + preview file for each section
+  {name}.css               ← section-specific styles only
+  _stubs.css               ← CSS stubs for planned sections (hero, problem, process, value, why, cta)
+index.html                 ← assembly shell: links all CSS, contains assembled section HTML
+```
+
+### Active sections
+| File                          | Section id        | Notes                          |
+|-------------------------------|-------------------|--------------------------------|
+| index.blocks/business-goals.html  | #business-goals   | 3-card viz (Власник/Клієнти/Команда) |
+| index.blocks/growth-problem.html  | #growth-problem   | 3-phase timeline, gap cards, animated bar chart, needs, credit card |
+| index.blocks/one-person.html      | #one-person       | 4 roles grid, responsibility problem, 2 obstacle cards, punchline |
+
+### Working on a section
+Read only: `style.css` + `index.blocks/{name}.html` + `index.blocks/{name}.css` — never read full `index.html` while developing.
+When done: copy `<section>` block into `index.html`, ensure `<link>` for section CSS is in `<head>`.
 
 ## Design tokens (`:root` in style.css)
 | Token      | Value   | Usage                        |
